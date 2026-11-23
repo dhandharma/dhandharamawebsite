@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-brand: #0f2f20;
+  --color-brand-deep: #0a2116;
+  --color-brand-soft: #1a4530;
+  --color-brand-tint: #e8efe9;
+  --color-accent: #f5803e;
+  --color-accent-hover: #e86f2b;
+  --color-accent-text: #b44f10; /* accent on light backgrounds, 5:1 contrast */
+
+  /* Supporting neutrals */
+  --color-paper: #f6f5f0;
+  --color-ink: #14201a;
+  --color-muted: #52605a;
+  --color-line: #dde2db;
+
+  /* Type */
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+
+  --radius-card: 0.5rem;
+}
+
+/* Responsive headline scale (serif) */
+@utility text-display {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  @media (min-width: 1024px) {
+    font-size: 3.75rem;
+  }
+}
+
+@utility text-title {
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  @media (min-width: 1024px) {
+    font-size: 2.75rem;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-brand);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Scroll reveal: toggled by <Reveal>. Content is visible by default (no-JS safe). */
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  [data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
